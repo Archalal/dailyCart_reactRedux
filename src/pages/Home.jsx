@@ -9,13 +9,15 @@ const Home = () => {
   const dispatch=useDispatch()
   const {allProducts,loading,error}=useSelector((state)=>state.productReducer)
   console.log(allProducts,loading,error);
+
+  
   
   useEffect(()=>{
    dispatch( fetchAllProducts())
   },[])
   return (
     <div>
-      <Header />
+      <Header  fromHomeComponent={true}/>
       <div style={{paddingTop:"60px"}}>
         <>
         
