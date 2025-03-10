@@ -3,6 +3,8 @@ import Header from '../components/Header'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { fetchProductById } from '../redux/slice/singleProductSlice'
+import { addToWhishlist } from '../redux/slice/whishlistSlice'
+
 
 
 
@@ -17,6 +19,22 @@ const View = () => {
     state.singleProductReducer
   )
   console.log(sProducts);
+
+  const whishlistState=useSelector((state)=>state.whishListReducer)
+  console.log(whishlistState);
+  
+
+  const onAddToWhishList=(product)=>{
+
+    const existingProduct=whishlistState.find((a)=> a.id==product.id)
+      if(existingProduct){
+        alert("product where already in the whishlist please  checkOut")
+      }
+      else{
+        dispatchView(addToWhishlist(product))
+      }
+
+  }
   
 
   useEffect(()=>{
@@ -31,7 +49,10 @@ const View = () => {
         <div>
           <img style={{height:"450px"}} src={sProducts.images} alt=""  />
           <div className='flex justify-between'>
-            <button className='border p-2 mt-1 rounded'>add to wishlist</button>
+            <button 
+            onClick={()=>onAddToWhishList(sProducts)}
+            
+            className='border p-2 mt-1 rounded'>add to wishlist</button>
             <button className='border p-2 mt-1 rounded'>add to cart</button>
           </div>
         </div>

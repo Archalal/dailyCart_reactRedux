@@ -35,7 +35,7 @@ const Home = () => {
                 allProducts?.length>0? allProducts?.map( (products,index)=>(
                   <div key={index} >
                   <div className='border shadow rounded m-5 p-3 '>
-                  <img src={products.images} alt="" />
+                  <img src={products.thumbnail} alt="" />
                   <div className="text-center">
                     <h2 className='p-2 font-bold text-lg'>{products.title}</h2>
                     <Link  to={ `/${products.id}/view`}className='border-1 rounded  bg-violet-500 p-1'> 

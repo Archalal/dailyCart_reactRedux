@@ -1,10 +1,14 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { searchproducts } from '../redux/slice/productSlice'
 
+
 const Header = ({fromHomeComponent}) => {
   const valueFromSearch=useDispatch()
+  const whishlistState=useSelector((state)=>state.whishListReducer)
+  // console.log(whishlistState);
+  
   return (
     <div>
 
@@ -21,7 +25,10 @@ const Header = ({fromHomeComponent}) => {
       }
         <li>
       <Link to={'/wishlist'}>
-      <i className="fa-solid fa-heart text-red-600 p-2"></i>Wishlist<span className='p-1'>0</span></Link>
+      <i className="fa-solid fa-heart text-red-600 p-2"></i>Wishlist<span className='p-1'>
+        {
+          whishlistState?.length
+        }</span></Link>
         </li>
         <li>
           <Link to={'/cart'}>

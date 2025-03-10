@@ -1,33 +1,48 @@
 import React from 'react'
 import Header from '../components/Header'
+import { useDispatch, useSelector } from 'react-redux'
+import { removeFromWhishlist } from '../redux/slice/whishlistSlice'
+
 
 const Wishlist = () => {
+  const dispatch=useDispatch()
+  const whishlistState=useSelector((state)=>state.whishListReducer)
   return (
     <div>
       <Header/>
-      <div style={{paddingTop:"80px"}} className='ms-3'>
-        <>
-        <h3>Wishlist</h3>
-        <div className="grid grid-cols-4 gap-5">
-            <div className='border shadow rounded m-5 p-3 '>
-            <img src="https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp" alt="" />
-            <div className="text-center">
-              <h2 className='p-2 font-bold text-lg'>Muhammed fazil(pushpu)</h2>
-             
-            </div>
-            <div className=' flex justify-evenly'>
-           <button>
-           <i className="fa-solid fa-heart-circle-xmark text-red-800"></i>
+      <div style={{ paddingTop: "80px" }} className="ms-3">
+        {
+          whishlistState?.length>0?<>
+          <h1 className="text-3xl text-green-600 ">My Wishlist</h1>
+          <div className="grid grid-cols-4 gap-5">
+          { whishlistState?.map((val)=>(
+       <div key={val?.id}  className="border shadow rounded pb-3">
+         <img
+           src={val?.thumbnail}
+           alt=""
+         />
+         <div className="text-center">
+           <h3 className="font-bold text-xl mb-5">
+            {val?.title}
+           </h3>
+         </div>
+         <div className="flex justify-evenly">
+           <button className="text-xl"
+           onClick={()=>removeFromWhishlist(val)}>
+           <i className="fa-solid fa-heart-circle-xmark text-red-600"></i>
            </button>
-           <button>
-           <i className="fa-solid fa-cart-plus text-green-800"></i>
-           </button>
-            </div>
-            </div>
-           
+           <button  className="text-xl"><i className="fa-solid fa-cart-shopping text-green-600"></i></button>
+         </div>
+       </div>
+          ))
+     
+          }
           </div>
-        </>
-
+          
+        </>:  <div className="flex justify-center"><img src="https://media3.giphy.com/media/0HhDnlH89djZtRqYoO/giphy.gif" alt="empty cart" />
+       </div>
+        }
+        
       </div>
       
     </div>
